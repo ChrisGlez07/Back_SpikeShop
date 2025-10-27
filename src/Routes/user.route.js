@@ -3,5 +3,6 @@ import { Router } from 'express';
 const router = Router();
 
 router.post('/', controller.createUser);
+router.get('/:id', controller.getUserById);
 
 export default router;
