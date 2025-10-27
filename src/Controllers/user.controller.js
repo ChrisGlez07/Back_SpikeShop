@@ -20,5 +20,20 @@ export async function getUserById(req, res, next){
             }
         );
     } catch (err) { next(err); }
-    
 }   
+export async function updateUser(req, res, next){
+    try {
+        let newInfo ={};
+        if(req.body.name) newInfo.name = req.body.name;
+        if(req.body.email) newInfo.email = req.body.email;
+        if(req.body.password) newInfo.password = req.body.password;
+
+        const user = await service.updateUser(req.body.id, newInfo);
+        res.status(201).json(
+            {
+            message: "User updated successfully", 
+            data: user
+            }
+        );
+    }catch (err) { next(err); }
+    }

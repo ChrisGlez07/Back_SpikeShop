@@ -25,6 +25,6 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-adminSchema.index({ username: 1, email: 1 });
-const Admin = mongoose.model("Admin", adminSchema);
+userSchema.index({ username: 1, email: 1 });
+const User = mongoose.model("User", userSchema);
 

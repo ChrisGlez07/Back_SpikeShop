@@ -17,3 +17,8 @@ export async function getUserById(id){
     return exist;
 }
 
+export async function updateUser(id, newInfo){
+     const exists = await User.findOneAndUpdate({id:id}, newInfo);
+    return exists;
+}
+
