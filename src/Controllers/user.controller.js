@@ -37,3 +37,16 @@ export async function updateUser(req, res, next){
         );
     }catch (err) { next(err); }
     }
+
+    export async function deleteUser(req, res, next){
+        try {
+            const userToDelete = req.params.deleteUser;
+            const userDeleted = await service.deleteUser(userToDelete);
+            res.status(200).json(
+                {
+                message: "User deleted successfully", 
+                data: userDeleted
+                }
+            );
+        } catch (err) { next(err); }
+    }   

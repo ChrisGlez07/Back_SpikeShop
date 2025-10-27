@@ -22,3 +22,7 @@ export async function updateUser(id, newInfo){
     return exists;
 }
 
+export async function deleteUser(id){  
+    const exist = await User.findOneAndDelete({id:id});
+    return exist;
+}
