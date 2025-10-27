@@ -2,7 +2,6 @@ import 'dotenv/config';
 import mongoose from 'mongoose';
 
 const { USER, PASSWORD, CLUSTER } = process.env;
-console.log(process.env.USER);
 
 if (!USER || !PASSWORD || !CLUSTER) {
     console.error('Variables de MongoDB no definidas en .env');
