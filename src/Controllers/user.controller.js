@@ -20,4 +20,5 @@ export async function getUserById(req, res, next){
             }
         );
     } catch (err) { next(err); }
+    
 }   
