@@ -1,0 +1,19 @@
+import e from 'express';
+import { User} from '../Models/user.model.js';
+
+export async function createUser(data){
+    const exist = await User.findOne({ id: data.id });
+    if(exist != null){
+        const error = new Error("User already exists");
+        error.status = 409;
+        throw error;
+    }
+    const user = await User.create(data);
+    return user.toObject();
+}
+
+export async function getUserById(id){
+   const exist = await User.findOne({id:id});
+    return exist;
+}
+
