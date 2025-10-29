@@ -1,15 +1,66 @@
 import * as service from '../services/admin.service.js';
+import { generateToken } from '../Helpers/auth.js';
 
 export async function createUser(req, res, next){
     try {
+        const { username, email, password } = req.body;
+        if (!username || !email || !password) {
+            return res.status(400).json({
+                message: "Todos los campos son requeridos (username, email, password)", 
+            });
+        }
+
         const user = await service.createUser(req.body);
-        res.status(201).json(
-            {message: "User created successfully", 
-            data: user
+        const token = generateToken(user.email, user._id);
+
+        res.status(201).json({
+            message: "User created successfully", 
+            data: {
+                user: {
+                    id: user._id,
+                    username: user.username,
+                    email: user.email,
+                    password: user.password
+                },
+                token
             }
-        );
+        });
     } catch (err) { next(err); }
 }
+
+export async function login(req, res, next){
+    try {
+        const { email, password } = req.body;
+        const user = await service.getUserByEmail(email);
+        if (!user) {
+            return res.status(400).json({
+                message: "Credenciales inválidas", 
+            });
+        }
+
+        if (user.password !== password) {
+            return res.status(400).json({
+                message: "Credenciales inválidas", 
+            });
+        }
+
+        const token = generateToken(user.email, user._id);
+
+        res.status(200).json({
+            message: "Login successful", 
+            data: {
+                user: {
+                    id: user._id,
+                    username: user.username,
+                    email: user.email
+                },
+                token
+            }
+        });
+    } catch (err) { next(err); }
+}
+
+
 
 export async function getUserById(req, res, next){
     try {

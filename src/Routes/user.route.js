@@ -1,11 +1,14 @@
 import * as controller from '../Controllers/user.controller.js';
 import { Router } from 'express';
+import { tokenUserValidation, tokenVerification } from '../Helpers/auth.js';
 const router = Router();
 
-router.post('/', controller.createUser);
-router.get('/:id', controller.getUserById);
-router.patch('/update', controller.updateUser);
-router.delete('/delete/:id', controller.deleteUser);
+router.post('/register', tokenVerification, controller.createUser);
+router.post('/login', tokenVerification, controller.login); 
+
+router.get('/:id', tokenUserValidation, controller.getUserById);
+router.patch('/update', tokenUserValidation, controller.updateUser);
+router.delete('/delete/:id', tokenUserValidation, controller.deleteUser);
 
 
 export default router;
