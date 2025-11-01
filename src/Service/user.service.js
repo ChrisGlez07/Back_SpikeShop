@@ -1,4 +1,4 @@
-import e from 'express';
+import express from 'express';
 import { User} from '../Models/user.model.js';
 
 export async function createUser(data){
@@ -25,4 +25,22 @@ export async function updateUser(id, newInfo){
 export async function deleteUser(id){  
     const exist = await User.findOneAndDelete({id:id});
     return exist;
+}
+
+export async function getUserByEmailOrUsername(email, username) {
+    try {
+        return await User.findOne({
+            $or: [{ email }, { username }]
+        });
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function getUserByEmail(email) {
+    try {
+        return await User.findOne({ email });
+    } catch (error) {
+        throw error;
+    }
 }

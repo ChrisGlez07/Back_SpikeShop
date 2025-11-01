@@ -1,5 +1,14 @@
-import * as service from '../services/admin.service.js';
-import { generateToken } from '../Helpers/auth.js';
+import * as service from '../Service/user.service.js';
+import { generateToken, generateTokenGeneric } from '../Helpers/auth.js';
+
+export function getGenericToken(req, res) {
+    try {
+        const token = generateTokenGeneric();
+        res.json({ token });
+    } catch (error) {
+        res.status(500).json({ error: 'Error generating generic token' });
+    }
+}
 
 export async function createUser(req, res, next){
     try {
