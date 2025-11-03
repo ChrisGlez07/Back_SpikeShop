@@ -18,3 +18,8 @@ export async function getProductoById(id){
    const exist = await Producto.findOne({id:id});
     return exist;
 }
+
+export async function updateProducto(id, newInfo){
+     const exists = await Producto.findOneAndUpdate({id:id}, newInfo, { new: true });
+    return exists;
+}

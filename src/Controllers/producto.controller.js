@@ -22,3 +22,14 @@ export async function getProductoById(req, res, next){
         );
     } catch (err) { next(err); }
 }
+
+export async function updateProducto(req, res, next){
+    try {
+        const { id, ...newInfo } = req.body;
+        const updatedProducto = await producto.updateProducto(id, newInfo);
+        res.status(200).json({
+            message: "Producto updated successfully", 
+            data: updatedProducto
+        });
+    } catch (err) { next(err); }
+}
