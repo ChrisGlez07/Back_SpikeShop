@@ -2,25 +2,34 @@ import 'dotenv/config';
 import jsonwebtoken from 'jsonwebtoken';
 
 export function generateToken (email, id) {
-    return jsonwebtoken.sign({ email, id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    return jsonwebtoken.sign({ email, id }, process.env.JWT_TOKE_SECRET, { expiresIn: '1h' });
 }
 
 export function generateTokenGeneric(){
-    return jsonwebtoken.sign({token : 'Acceso generico'}, process.env.JWT_SECRET, { expiresIn: '1h' });
+    console.log(process.env.JWT_TOKE_SECRET)
+    // return 'Valor null'
+    return jsonwebtoken.sign({token : 'Acceso generico'}, process.env.JWT_TOKE_SECRET, { expiresIn: '1h' });
 }
 
 export function tokenVerification (req,res,next) {
     const token = req.header('AppToken')?.replace('Bearer ', '');
+    console.log('Validacion');
     console.log(token);
     if(!token){
+         console.log('Validacion');
         res.status(401).json({ error: 'Application token required.' });
     }
     try {
-        const dataToken = jsonwebtoken.verify(token, process.env.JWT_SECRET);
+        console.log('Rntra a try');
+                console.log(process.env.JWT_TOKE_SECRET);
+
+        const dataToken = jsonwebtoken.verify(token, process.env.JWT_TOKE_SECRET);
         console.log(dataToken);
         next();
     }catch (error) {
-        res.status(401).json({ error: 'Invalid token.' });
+                        console.log(error);
+
+        // res.status(401).json({ error: 'Invalid token.' });
     }
 }
 
