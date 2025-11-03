@@ -11,3 +11,14 @@ export async function createProducto(req, res, next) {
         });
     } catch (err) { next(err); }
 }
+
+export async function getProductoById(req, res, next){
+    try {
+        const productoData = await producto.getProductoById(req.params.id);
+        res.status(200).json(
+            {message: "Producto fetched successfully", 
+            data: productoData
+            }
+        );
+    } catch (err) { next(err); }
+}

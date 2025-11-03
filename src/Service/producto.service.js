@@ -13,3 +13,8 @@ export async function createProducto(data){
     await producto.save();
     return producto;
 }
+
+export async function getProductoById(id){
+   const exist = await Producto.findOne({id:id});
+    return exist;
+}

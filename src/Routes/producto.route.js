@@ -1,17 +1,17 @@
 import * as controller from '../Controllers/producto.controller.js';
-import * as controlleru from '../Controllers/user.controller.js';
+import * as controllerUser from '../Controllers/user.controller.js';
 import { Router } from 'express';
 import { tokenUserValidation, tokenVerification } from '../Helpers/auth.js';
 const router = Router();
 
 //admin
-router.get('/:id', tokenUserValidation, controlleru.getUserById);
-router.patch('/update', tokenUserValidation, controlleru.updateUser);
-router.delete('/delete/:id', tokenUserValidation, controlleru.deleteUser);
+router.get('/:id', tokenUserValidation, controllerUser.getUserById);
+router.patch('/update', tokenUserValidation, controllerUser.updateUser);
+router.delete('/delete/:id', tokenUserValidation, controllerUser.deleteUser);
 
 //productos
-router.post('/create', tokenVerification, controller.createProducto);
-
+router.post('/createProducto', tokenVerification, controller.createProducto);
+router.get('/producto/:id', tokenVerification, controller.getProductoById);
 export default router;
 
 
