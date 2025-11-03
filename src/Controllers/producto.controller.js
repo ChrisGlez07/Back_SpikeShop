@@ -1,0 +1,1 @@
+import * as producto from '../Services/producto.service.js';
