@@ -23,3 +23,8 @@ export async function updateProducto(id, newInfo){
      const exists = await Producto.findOneAndUpdate({id:id}, newInfo, { new: true });
     return exists;
 }
+
+export async function deleteProducto(id){  
+    const exist = await Producto.findOneAndDelete({id:id});
+    return exist;
+}   

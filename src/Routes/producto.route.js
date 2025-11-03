@@ -13,6 +13,7 @@ router.delete('/delete/:id', tokenUserValidation, controllerUser.deleteUser);
 router.post('/createProducto', tokenVerification, controller.createProducto);
 router.get('/producto/:id', tokenVerification, controller.getProductoById);
 router.patch('/updateProducto', tokenVerification, controller.updateProducto);
+router.delete('/deleteProducto', tokenVerification, controller.deleteProducto);
 export default router;
 
 

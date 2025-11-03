@@ -33,3 +33,14 @@ export async function updateProducto(req, res, next){
         });
     } catch (err) { next(err); }
 }
+
+export async function deleteProducto(req, res, next){
+    try {
+        const productoToDelete = req.body.id;
+        const deletedProducto = await producto.deleteProducto(productoToDelete);
+        res.status(200).json({
+            message: "Producto deleted successfully",
+            data: deletedProducto
+        });
+    } catch (err) { next(err); }
+}
