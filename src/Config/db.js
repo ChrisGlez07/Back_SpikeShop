@@ -8,7 +8,7 @@ if (!USER || !PASSWORD || !CLUSTER) {
     process.exit(true);
 }
 
-const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${CLUSTER}/?retryWrites=true&w=majority&appName=Chris`;
+const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${CLUSTER}/SpikeShop?retryWrites=true&w=majority`;
 
 const connectDB = async () => {
     try {
