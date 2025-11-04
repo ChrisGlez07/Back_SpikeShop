@@ -53,7 +53,8 @@ export async function login(req, res, next) {
             });
         }
 
-        if (user.password !== password) {
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
             return res.status(400).json({
                 message: "Credenciales inválidas",
             });

@@ -6,7 +6,7 @@ const router = Router();
 router.get('/token/generic', controller.getGenericToken);
 
 router.post('/register', tokenVerification, controller.createUser);
-router.post('/login', tokenVerification, controller.login); 
+router.get('/login', tokenVerification, controller.login); 
 
 router.get('/:id', tokenUserValidation, controller.getUserById);
 router.patch('/update', tokenUserValidation, controller.updateUser);
