@@ -5,9 +5,9 @@ import { tokenUserValidation, tokenVerification } from '../Helpers/auth.js';
 const router = Router();
 
 //admin
-router.get('/:id', tokenUserValidation, controllerUser.getUserById);
-router.patch('/update', tokenUserValidation, controllerUser.updateUser);
-router.delete('/delete/:id', tokenUserValidation, controllerUser.deleteUser);
+router.get('/producto/:id', tokenUserValidation, controllerUser.getUserById);
+router.patch('/producto/update', tokenUserValidation, controllerUser.updateUser);
+router.delete('/producto/delete/:id', tokenUserValidation, controllerUser.deleteUser);
 
 //productos
 router.post('/createProducto', tokenVerification, controller.createProducto);
