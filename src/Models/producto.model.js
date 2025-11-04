@@ -24,8 +24,12 @@ const productoSchema = new mongoose.Schema({
     precio: {
         type: Number,
         required: true,
+    },
+    imagen:{
+        type: String,
+        required: true,
     }
 });
 productoSchema.index({ nombre: 1, tipo: 1 });
-const Producto = mongoose.model("Producto", productoSchema);
+const Producto = mongoose.model("producto", productoSchema);
 export { Producto };
