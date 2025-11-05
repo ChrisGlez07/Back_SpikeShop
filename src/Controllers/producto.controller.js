@@ -23,6 +23,20 @@ export async function getProductoById(req, res, next){
     } catch (err) { next(err); }
 }
 
+export async function getProducto(req, res, next) {
+    try {
+        const productos = await producto.getProducto();
+        console.log(productos);
+        res.status(200).json({
+            message: "Productos obtenidos exitosamente",
+            data: productos,
+            count: productos.length
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
 export async function updateProducto(req, res, next){
     try {
         const { id, ...newInfo } = req.body;

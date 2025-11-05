@@ -7,29 +7,27 @@ export function generateToken(email, id) {
 
 export function generateTokenGeneric() {
     console.log(process.env.JWT_TOKE_SECRET)
-    // return 'Valor null'
     return jsonwebtoken.sign({ token: 'Acceso generico' }, process.env.JWT_TOKE_SECRET, { expiresIn: '1h' });
 }
 
 export function tokenVerification(req, res, next) {
-    const token = req.header('AppToken')?.replace('Bearer ', '');
-    console.log('Validacion');
-    console.log(token);
+    const token = req.header('Authorization')?.replace('Bearer ', '');
+    console.log('Validacion token:', token);
+    
     if (!token) {
-        console.log('Validacion');
-        res.status(401).json({ error: 'Application token required.' });
+        console.log('Token no proporcionado');
+        return res.status(401).json({ error: 'Token must be provided' });
     }
+    
     try {
-        console.log('Rntra a try');
-        console.log(process.env.JWT_TOKE_SECRET);
-
+        console.log('Secret key:', process.env.JWT_TOKE_SECRET);
         const dataToken = jsonwebtoken.verify(token, process.env.JWT_TOKE_SECRET);
-        console.log(dataToken);
+        console.log('Token decodificado:', dataToken);
+        req.user = dataToken; 
         next();
     } catch (error) {
-        console.log(error);
-
-        // res.status(401).json({ error: 'Invalid token.' });
+        console.log('Error verificando token:', error);
+        return res.status(401).json({ error: 'Invalid token' });
     }
 }
 

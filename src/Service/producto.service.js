@@ -19,6 +19,11 @@ export async function getProductoById(id){
     return exist;
 }
 
+export async function getProducto(){
+   const exist = await Producto.find();
+    return exist;
+}
+
 export async function updateProducto(id, newInfo){
      const exists = await Producto.findOneAndUpdate({id:id}, newInfo, { new: true });
     return exists;
