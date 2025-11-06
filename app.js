@@ -12,12 +12,16 @@ connectDB();
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors({
-  origin: ['http://localhost:5173'], 
+const corsOptions = {
+  origin: ['http://localhost:5173', 'http://localhost:3000'], 
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'ngrok-skip-browser-warning'],
-  credentials: true, 
-}));
+  allowedHeaders: ['Content-Type', 'Authorization', 'ngrok-skip-browser-warning', 'Cache-Control', 'Pragma'],
+  credentials: true,
+  preflightContinue: false, 
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use('/users', userRoutes);
