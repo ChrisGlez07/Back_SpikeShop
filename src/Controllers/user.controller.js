@@ -14,33 +14,58 @@ export function getGenericToken(req, res) {
 export async function createUser(req, res, next) {
     try {
         const { username, email, password } = req.body;
+        
         if (!username || !email || !password) {
             return res.status(400).json({
                 message: "Todos los campos son requeridos (username, email, password)",
             });
         }
-        const newPasswrod = await bcrypt.hash(password, 10);
+
+        const existingUser = await service.getUserByEmail(email);
+        if (existingUser) {
+            return res.status(409).json({
+                message: "El email ya está registrado",
+            });
+        }
+
+        const newPassword = await bcrypt.hash(password, 10);
+        
         const data = {
             username,
             email,
-            password: newPasswrod
+            password: newPassword
         }
+
         const user = await service.createUser(data);
         const token = generateToken(user.email, user._id);
-
+        
         res.status(201).json({
-            message: "User created successfully",
+            message: "Usuario creado exitosamente",
+            redirectTo: "users/login",
             data: {
                 user: {
                     id: user._id,
                     username: user.username,
                     email: user.email,
-                    password: newPasswrod
+                    password: newPassword
                 },
                 token
             }
         });
-    } catch (err) { console.log(err)}
+
+    } catch (err) { 
+        console.error("Error creating user:", err);
+        
+        if (err.code === 11000) { 
+            return res.status(409).json({
+                message: "El email o username ya existe",
+            });
+        }
+        
+        res.status(500).json({
+            message: "Error interno del servidor",
+        });
+    }
 }
 
 export async function login(req, res, next) {
