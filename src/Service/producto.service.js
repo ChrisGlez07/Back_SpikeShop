@@ -15,7 +15,12 @@ export async function createProducto(data){
 }
 
 export async function getProductoById(id){
-   const exist = await Producto.findOne({id:id});
+   const exist = await Producto.findOne({id: id});
+   if (!exist) {
+        const error = new Error("Producto no encontrado");
+        error.status = 404;
+        throw error;
+    }
     return exist;
 }
 
@@ -25,7 +30,21 @@ export async function getProducto(){
 }
 
 export async function updateProducto(id, newInfo){
-     const exists = await Producto.findOneAndUpdate({id:id}, newInfo, { new: true });
+     const exists = await Producto.findOneAndUpdate(
+         {id: id}, 
+         newInfo, 
+         { 
+             new: true, 
+             runValidators: true
+         }
+     );
+     
+     if (!exists) {
+        const error = new Error("Producto no encontrado");
+        error.status = 404;
+        throw error;
+    }
+    
     return exists;
 }
 
