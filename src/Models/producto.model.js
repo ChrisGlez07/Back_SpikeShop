@@ -31,12 +31,12 @@ const productoSchema = new mongoose.Schema({
             color: {
                 type: String,
                 required: true,
-                enum: ['rojo', 'azul', 'negro']
+                enum: ['red', 'blue', 'black']
             },
             talla: {
                 type: String,
                 required: true,
-                enum: ['CH', 'M', 'G', 'XL']
+                enum: ['S', 'M', 'L', 'XL']
             },
             cantidad: {
                 type: Number,
