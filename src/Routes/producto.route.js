@@ -12,7 +12,7 @@ router.delete('/producto/delete/:id', tokenUserValidation, controllerUser.delete
 //productos
 router.post('/createProducto', tokenVerification, isAdmin, controller.createProducto);
 router.get('/producto/:id', tokenVerification, isAdmin, controller.getProductoById);
-router.get('/items', tokenVerification, isAdmin, controller.getProducto);
+router.get('/items', tokenVerification, controller.getProducto);
 router.patch('/updateProducto', tokenVerification, isAdmin, controller.updateProducto);
 router.delete('/deleteProducto', tokenVerification, isAdmin, controller.deleteProducto);
 export default router;
