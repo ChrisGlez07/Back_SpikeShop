@@ -1,8 +1,8 @@
 import 'dotenv/config';
 import jsonwebtoken from 'jsonwebtoken';
 
-export function generateToken(email, id) {
-    return jsonwebtoken.sign({ email, id }, process.env.JWT_TOKE_SECRET, { expiresIn: '1h' });
+export function generateToken(email, id, role) {
+    return jsonwebtoken.sign({ email, id, role }, process.env.JWT_TOKE_SECRET, { expiresIn: '1h' });
 }
 
 export function generateTokenGeneric() {
@@ -61,4 +61,12 @@ export function tokenUserValidation(req, res, next) {
     } catch (error) {
         res.status(401).json({ error: 'Application token required' });
     }
+}
+
+////para chris
+export function isAdmin(req, res, next) {
+    if (!req.user || req.user.role !== "admin") {
+        return res.status(403).json({ error: "Solo el administrador puede realizar esta acción" });
+    }
+    next();
 }

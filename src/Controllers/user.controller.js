@@ -47,7 +47,8 @@ export async function createUser(req, res, next) {
                     id: user._id,
                     username: user.username,
                     email: user.email,
-                    password: newPassword
+                    password: newPassword,
+                    role: user.role
                 },
                 token
             }
@@ -71,21 +72,19 @@ export async function createUser(req, res, next) {
 export async function login(req, res, next) {
     try {
         const { email, password } = req.body;
+
         const user = await service.getUserByEmail(email);
         if (!user) {
-            return res.status(400).json({
-                message: "Credenciales inválidas",
-            });
+            return res.status(400).json({ message: "Credenciales inválidas" });
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
-            return res.status(400).json({
-                message: "Credenciales inválidas",
-            });
+            return res.status(400).json({ message: "Credenciales inválidas" });
         }
 
-        const token = generateToken(user.email, user._id);
+        // Generar token con role
+        const token = generateToken(user.email, user._id, user.role);
 
         res.status(200).json({
             message: "Login successful",
@@ -93,13 +92,17 @@ export async function login(req, res, next) {
                 user: {
                     id: user._id,
                     username: user.username,
-                    email: user.email
+                    email: user.email,
+                    role: user.role
                 },
                 token
             }
         });
-    } catch (err) { next(err); }
+    } catch (err) {
+        next(err);
+    }
 }
+
 
 
 
