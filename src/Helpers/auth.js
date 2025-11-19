@@ -7,7 +7,7 @@ export function generateToken(email, id, role) {
 
 export function generateTokenGeneric() {
     console.log(process.env.JWT_TOKE_SECRET)
-    return jsonwebtoken.sign({ token: 'Acceso generico' }, process.env.JWT_TOKE_SECRET, { expiresIn: '1h' });
+    return jsonwebtoken.sign({ token: 'Access Generic' }, process.env.JWT_TOKE_SECRET, { expiresIn: '1h' });
 }
 
 export function tokenVerification(req, res, next) {
@@ -22,11 +22,11 @@ export function tokenVerification(req, res, next) {
     try {
         console.log('Secret key:', process.env.JWT_TOKE_SECRET);
         const dataToken = jsonwebtoken.verify(token, process.env.JWT_TOKE_SECRET);
-        console.log('Token decodificado:', dataToken);
+        console.log('Decoded token:', dataToken);
         req.user = dataToken; 
         next();
     } catch (error) {
-        console.log('Error verificando token:', error);
+        console.log('Error verifying token:', error);
         return res.status(401).json({ error: 'Invalid token' });
     }
 }
@@ -37,7 +37,7 @@ export function isAdmin(req, res, next) {
 
     
     if (req.user.role !== "admin") {
-        return res.status(403).json({ error: "Solo el administrador puede realizar esta acción" });
+        return res.status(403).json({ error: "Only admins can perform this action" });
     }
     next();
 }
