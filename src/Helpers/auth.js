@@ -31,6 +31,18 @@ export function tokenVerification(req, res, next) {
     }
 }
 
+////para chris
+export function isAdmin(req, res, next) {
+    console.log(req.user.role);
+
+    
+    if (req.user.role !== "admin") {
+        return res.status(403).json({ error: "Solo el administrador puede realizar esta acción" });
+    }
+    next();
+}
+
+
 export function tokenUserValidation(req, res, next) {
     const AppToken = req.header('AppToken')?.replace('Bearer ', '');
     const UserToken = req.header('UserToken')?.replace('Bearer ', '');
@@ -63,10 +75,3 @@ export function tokenUserValidation(req, res, next) {
     }
 }
 
-////para chris
-export function isAdmin(req, res, next) {
-    if (!req.user || req.user.role !== "admin") {
-        return res.status(403).json({ error: "Solo el administrador puede realizar esta acción" });
-    }
-    next();
-}
