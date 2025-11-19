@@ -6,6 +6,7 @@ import userRoutes from './src/Routes/user.route.js';
 import productoRoutes from './src/Routes/producto.route.js';
 import { generateTokenGeneric } from './src/Helpers/auth.js';
 import carritoRoutes from "./src/Routes/carrito.routes.js";
+import ticketRoutes from "./src/Routes/ticket.routes.js";
 
 
 
@@ -31,6 +32,7 @@ app.use(express.json());
 app.use('/users', userRoutes);
 app.use('/productos', productoRoutes);
 app.use("/api/carrito", carritoRoutes);
+app.use("/api/ticket", ticketRoutes);
 app.listen(port, () => {
     console.log('Generando token generico:');
     console.log(generateTokenGeneric())
