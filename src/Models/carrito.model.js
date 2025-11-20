@@ -29,6 +29,13 @@ const carritoProductoSchema = new mongoose.Schema({
 });
 
 const carritoSchema = new mongoose.Schema({
+    usuarioEmail: {
+        type: String,
+        ref: "Usuarios",
+        refPath: "email",
+        required: true
+    },
+    
     productos: [carritoProductoSchema],
 
     total: {
