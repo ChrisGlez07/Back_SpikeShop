@@ -2,8 +2,7 @@ import mongoose from "mongoose";
 
 const carritoProductoSchema = new mongoose.Schema({
     productoId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "producto",
+        type: mongoose.Schema.Types.Mixed, // ← Cambiar a Mixed para aceptar cualquier tipo
         required: true
     },
     nombre: {
