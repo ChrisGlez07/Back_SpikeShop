@@ -17,14 +17,14 @@ export async function createUser(req, res, next) {
 
         if (!username || !email || !password) {
             return res.status(400).json({
-                message: "Todos los campos son requeridos (username, email, password)",
+                message: "All the fields are recquired (username, email, password)",
             });
         }
 
         const existingUser = await service.getUserByEmail(email);
         if (existingUser) {
             return res.status(409).json({
-                message: "El email ya está registrado",
+                message: "The email is already in use",
             });
         }
 
@@ -34,7 +34,7 @@ export async function createUser(req, res, next) {
             username,
             email,
             password: newPassword,
-            role: role || "user"   // si no viene, será user
+            role: role || "user"  
         };
 
 
@@ -42,8 +42,8 @@ export async function createUser(req, res, next) {
         const token = generateToken(user.email, user._id);
 
         res.status(201).json({
-            message: "Usuario creado exitosamente",
-            redirectTo: "users/login",
+            message: "Userr created successfully",
+            redirectTo: "/login",
             data: {
                 user: {
                     id: user._id,
@@ -61,12 +61,12 @@ export async function createUser(req, res, next) {
 
         if (err.code === 11000) {
             return res.status(409).json({
-                message: "El email o username ya existe",
+                message: "The email or username is already in use",
             });
         }
 
         res.status(500).json({
-            message: "Error interno del servidor",
+            message: "Internal server error",
         });
     }
 }
@@ -77,15 +77,14 @@ export async function login(req, res, next) {
 
         const user = await service.getUserByEmail(email);
         if (!user) {
-            return res.status(400).json({ message: "Credenciales inválidas" });
+            return res.status(400).json({ message: "Invalid Credentials" });
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
-            return res.status(400).json({ message: "Credenciales inválidas" });
+            return res.status(400).json({ message: "Invalid Credentials" });
         }
 
-        // Generar token con role
         const token = generateToken(user.email, user._id, user.role);
 
         res.status(200).json({

@@ -5,7 +5,7 @@ export async function createProducto(req, res, next) {
         const { nombre, tipo, precio, imagen, descripcion } = req.body;
         if (!descripcion || !Array.isArray(descripcion) || descripcion.length === 0) {
             return res.status(400).json({
-                message: "El producto debe tener al menos una combinación de color y talla en la descripción"
+                message: "The product description must have at least one color and size combination"
             });
         }
 
@@ -13,7 +13,7 @@ export async function createProducto(req, res, next) {
         const productoCreated = await producto.createProducto(newProducto);
         
         res.status(201).json({
-            message: "Producto creado exitosamente",
+            message: "Producto created successfully",
             data: productoCreated
         });
     } catch (err) { 
@@ -37,7 +37,7 @@ export async function getProducto(req, res, next) {
         const productos = await producto.getProducto();
         console.log(productos);
         res.status(200).json({
-            message: "Productos obtenidos exitosamente",
+            message: "Productos fetched successfully",
             data: productos,
             count: productos.length
         });
@@ -51,13 +51,13 @@ export async function updateProducto(req, res, next){
         const { id, ...newInfo } = req.body;
         if (newInfo.descripcion && (!Array.isArray(newInfo.descripcion) || newInfo.descripcion.length === 0)) {
             return res.status(400).json({
-                message: "La descripción debe tener al menos una combinación de color y talla"
+                message: "The product description must have at least one color and size combination"
             });
         }
         
         const updatedProducto = await producto.updateProducto(id, newInfo);
         res.status(200).json({
-            message: "Producto actualizado exitosamente", 
+            message: "Producto updated successfully", 
             data: updatedProducto
         });
     } catch (err) { 
