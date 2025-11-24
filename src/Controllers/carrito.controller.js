@@ -12,8 +12,17 @@ export const crearCarrito = async (req, res) => {
             );
 
             return res.status(201).json({
+                success: true, // ← Agregar esta propiedad
                 message: "Carrito creado exitosamente",
-                carrito
+                data: { // ← Cambiar "carrito" por "data" con estructura específica
+                    _id: carrito._id,
+                    carritoId: carrito.carritoId, // ← Incluir el carritoId
+                    usuarioEmail: carrito.usuarioEmail,
+                    total: carrito.total,
+                    productos: carrito.productos,
+                    estado: carrito.estado,
+                    fecha: carrito.fecha
+                }
             });
         }
     
@@ -21,19 +30,32 @@ export const crearCarrito = async (req, res) => {
             const carrito = await carritoService.agregarProductoAlCarrito(productoId, cantidad);
 
             return res.status(201).json({
+                success: true,
                 message: "Carrito creado exitosamente",
-                carrito
+                data: {
+                    _id: carrito._id,
+                    carritoId: carrito.carritoId,
+                    usuarioEmail: carrito.usuarioEmail,
+                    total: carrito.total,
+                    productos: carrito.productos,
+                    estado: carrito.estado,
+                    fecha: carrito.fecha
+                }
             });
         }
         
         else {
             return res.status(400).json({ 
+                success: false,
                 error: "Estructura de datos inválida. Se espera {usuarioEmail, productos, total} o {productoId, cantidad}" 
             });
         }
 
     } catch (error) {
-        return res.status(400).json({ error: error.message });
+        return res.status(400).json({ 
+            success: false,
+            error: error.message 
+        });
     }
 };
 
