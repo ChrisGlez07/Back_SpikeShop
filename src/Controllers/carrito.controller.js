@@ -12,11 +12,11 @@ export const crearCarrito = async (req, res) => {
             );
 
             return res.status(201).json({
-                success: true, // ← Agregar esta propiedad
-                message: "Carrito creado exitosamente",
-                data: { // ← Cambiar "carrito" por "data" con estructura específica
+                success: true, 
+                message: "Shopping cart created successfully",
+                data: { 
                     _id: carrito._id,
-                    carritoId: carrito.carritoId, // ← Incluir el carritoId
+                    carritoId: carrito.carritoId, 
                     usuarioEmail: carrito.usuarioEmail,
                     total: carrito.total,
                     productos: carrito.productos,
