@@ -121,9 +121,14 @@ export async function getUserById(req, res, next) {
 export async function updateUser(req, res, next) {
     try {
         let newInfo = {};
-        if (req.body.name) newInfo.name = req.body.name;
+        if (req.body.username) newInfo.username = req.body.username;
         if (req.body.email) newInfo.email = req.body.email;
-        if (req.body.password) newInfo.password = req.body.password;
+        if (req.body.role) newInfo.role = req.body.role;
+
+        if (req.body.password && req.body.password.trim() !== "") {
+            const newPassword = await bcrypt.hash(req.body.password, 10);
+            newInfo.password = newPassword;
+        }
 
         const user = await service.updateUser(req.body.id, newInfo);
         res.status(201).json(
@@ -137,7 +142,7 @@ export async function updateUser(req, res, next) {
 
 export async function deleteUser(req, res, next) {
     try {
-        const userToDelete = req.params.deleteUser;
+        const userToDelete = req.params.id;
         const userDeleted = await service.deleteUser(userToDelete);
         res.status(200).json(
             {
@@ -147,3 +152,15 @@ export async function deleteUser(req, res, next) {
         );
     } catch (err) { next(err); }
 }   
+
+export async function getAllUsers(req, res, next) {
+    try {
+        const users = await service.getAllUsers();
+        res.status(200).json({
+            message: "Users fetched successfully",
+            data: users
+        });
+    } catch (err) { 
+        next(err); 
+    }
+}

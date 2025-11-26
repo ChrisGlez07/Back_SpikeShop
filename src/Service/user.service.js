@@ -44,3 +44,12 @@ export async function getUserByEmail(email) {
         throw error;
     }
 }
+
+export async function getAllUsers() {
+    try {
+        const users = await User.find({}).select('-password');
+        return users;
+    } catch (error) {
+        throw new Error(`Error getting users: ${error.message}`);
+    }
+}

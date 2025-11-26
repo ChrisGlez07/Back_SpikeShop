@@ -9,9 +9,10 @@ router.post('/register', tokenVerification, controller.createUser);
 router.post('/login', tokenVerification, controller.login); 
 
 //admin
-router.get('/:id', tokenUserValidation, isAdmin, controller.getUserById);
-router.patch('/update', tokenUserValidation, isAdmin, controller.updateUser);
-router.delete('/delete/:id', tokenUserValidation, isAdmin ,controller.deleteUser);
+router.get('/', tokenVerification, controller.getAllUsers);
+router.get('/:id', tokenVerification, controller.getUserById);
+router.patch('/update', tokenVerification, controller.updateUser);
+router.delete('/delete/:id', tokenVerification, controller.deleteUser);
 
 
 export default router;
