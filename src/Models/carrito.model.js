@@ -45,7 +45,6 @@ const carritoProductoSchema = new mongoose.Schema({
 });
 
 const carritoSchema = new mongoose.Schema({
-  // ID único para el carrito completo
   carritoId: {
     type: String,
     unique: true,
