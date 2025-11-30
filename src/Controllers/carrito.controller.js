@@ -61,7 +61,7 @@ export const crearCarrito = async (req, res) => {
 
 export const obtenerCarrito = async (req, res) => {
     try {
-        const carrito = await carritoService.obtenerCarritoPorId(req.params.id);
+        const carrito = await carritoService.obtenerCarritoPorId(req.params.carritoId);
         return res.status(200).json(carrito);
 
     } catch (error) {
@@ -81,7 +81,7 @@ export const obtenerCarritos = async (req, res) => {
 
 export const borrarCarrito = async (req, res) => {
     try {
-        const carrito = await carritoService.eliminarCarrito(req.params.id);
+        const carrito = await carritoService.eliminarCarrito(req.params.carritoId);
 
         return res.status(200).json({
             message: "Carrito eliminado",
@@ -107,10 +107,10 @@ export const obtenerCarritosUsuario = async (req, res) => {
 
 export const actualizarCarrito = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { carritoId } = req.params;
         const { productos, total } = req.body;
 
-        const carrito = await carritoService.actualizarCarrito(id, productos, total);
+        const carrito = await carritoService.actualizarCarrito(carritoId, productos, total);
 
         return res.status(200).json({
             message: "Carrito actualizado exitosamente",

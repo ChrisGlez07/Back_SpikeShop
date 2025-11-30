@@ -47,8 +47,8 @@ export const agregarProductoAlCarrito = async (productoId, cantidad) => {
 };
 
 // ... mantén las otras funciones existentes
-export const obtenerCarritoPorId = async (id) => {
-    const carrito = await Carrito.findById(id);
+export const obtenerCarritoPorId = async (carritoId) => {
+    const carrito = await Carrito.findById(carritoId);
     if (!carrito) throw new Error("Carrito no encontrado");
     return carrito;
 };
@@ -57,8 +57,8 @@ export const obtenerTodosLosCarritos = async () => {
     return await Carrito.find();
 };
 
-export const eliminarCarrito = async (id) => {
-    const carrito = await Carrito.findByIdAndDelete(id);
+export const eliminarCarrito = async (carritoId) => {
+    const carrito = await Carrito.findByIdAndDelete(carritoId);
     if (!carrito) throw new Error("Carrito no encontrado");
     return carrito;
 };

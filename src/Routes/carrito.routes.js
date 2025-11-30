@@ -17,9 +17,9 @@ router.post("/", crearCarrito);
 router.get("/", obtenerCarritos);
 
 // Obtener un ticket por ID
-router.get("/:id", obtenerCarrito);
+router.get("/:carritoId", obtenerCarrito);
 
 // Borrar ticket
-router.delete("/:id", borrarCarrito);
+router.delete("/:carritoId", borrarCarrito);
 
 export default router;

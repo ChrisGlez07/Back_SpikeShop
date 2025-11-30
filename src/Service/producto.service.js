@@ -52,3 +52,15 @@ export async function deleteProducto(id){
     const exist = await Producto.findOneAndDelete({id:id});
     return exist;
 }   
+
+export async function getProductoByNombre(nombre){
+    const exist = await Producto.findOne({ nombre: nombre });
+
+    if (!exist) {
+        const error = new Error("Producto no encontrado por nombre");
+        error.status = 404;
+        throw error;
+    }
+
+    return exist;
+}

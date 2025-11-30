@@ -75,3 +75,18 @@ export async function deleteProducto(req, res, next){
         });
     } catch (err) { next(err); }
 }
+
+export async function getProductoByNombre(req, res, next) {
+    try {
+        const nombre = req.params.nombre;
+
+        const productoData = await producto.getProductoByNombre(nombre);
+
+        res.status(200).json({
+            message: "Producto fetched successfully by name",
+            data: productoData
+        });
+    } catch (err) {
+        next(err);
+    }
+}

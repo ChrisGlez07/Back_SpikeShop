@@ -9,6 +9,7 @@ router.get('/producto/:id', tokenVerification, controller.getProductoById);
 router.get('/items', tokenVerification, controller.getProducto);
 router.patch('/updateProducto', tokenVerification, controller.updateProducto);
 router.delete('/deleteProducto', tokenVerification, controller.deleteProducto);
+router.get('/nombre/:nombre', tokenVerification, controller.getProductoByNombre);
 export default router;
 
 
